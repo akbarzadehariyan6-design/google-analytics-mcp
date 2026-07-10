@@ -1,31 +1,31 @@
 {
-  "description": "Measured performance of the unoptimized mid-bounds baseline design. This is the zero-credit level of the pressure-recovery scale: matching it earns no recovery credit.",
+  "description": "Measured performance of the published reference design (a sound but unoptimized straight-walled, full-length diffuser). This is the zero-credit level of the pressure-recovery scale: matching or undershooting it earns no recovery credit.",
   "design": {
-    "area_ratio": 1.9,
-    "length_m": 0.6,
-    "wall_blend": 0.5,
+    "area_ratio": 2.2,
+    "length_m": 0.72,
+    "wall_blend": 0.0,
     "inflection_position": 0.5
   },
   "performance_by_velocity": {
     "6": {
-      "cp": 0.5964,
+      "cp": 0.6641,
       "reversed_wall_fraction": 0.0,
-      "outlet_nonuniformity": 0.264
+      "outlet_nonuniformity": 0.309
     },
     "10": {
-      "cp": 0.6338,
+      "cp": 0.7023,
       "reversed_wall_fraction": 0.0,
-      "outlet_nonuniformity": 0.205
+      "outlet_nonuniformity": 0.245
     },
     "14": {
-      "cp": 0.6386,
+      "cp": 0.7078,
       "reversed_wall_fraction": 0.0,
-      "outlet_nonuniformity": 0.192
+      "outlet_nonuniformity": 0.23
     },
     "18": {
-      "cp": 0.641,
+      "cp": 0.7104,
       "reversed_wall_fraction": 0.0,
-      "outlet_nonuniformity": 0.187
+      "outlet_nonuniformity": 0.224
     }
   }
 }

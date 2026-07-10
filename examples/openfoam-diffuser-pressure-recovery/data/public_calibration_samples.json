@@ -112,36 +112,6 @@
           "outlet_nonuniformity": 0.497
         }
       }
-    },
-    "upper_mid_long": {
-      "design": {
-        "area_ratio": 2.3,
-        "length_m": 0.72,
-        "wall_blend": 0.2,
-        "inflection_position": 0.5
-      },
-      "performance_by_velocity": {
-        "6": {
-          "cp": 0.6757,
-          "reversed_wall_fraction": 0.0,
-          "outlet_nonuniformity": 0.333
-        },
-        "10": {
-          "cp": 0.7165,
-          "reversed_wall_fraction": 0.0,
-          "outlet_nonuniformity": 0.268
-        },
-        "14": {
-          "cp": 0.7225,
-          "reversed_wall_fraction": 0.0,
-          "outlet_nonuniformity": 0.251
-        },
-        "18": {
-          "cp": 0.7254,
-          "reversed_wall_fraction": 0.0,
-          "outlet_nonuniformity": 0.245
-        }
-      }
     }
   }
 }
