@@ -1,0 +1,26 @@
+[task]
+name = "openfoam-diffuser-pressure-recovery"
+description = "Design a 2-D planar diffuser expansion contour that maximizes worst-case pressure recovery across a four-velocity operating envelope while keeping the flow attached."
+
+[environment]
+cpu = 4
+memory_gb = 8
+storage_gb = 12
+internet = false
+
+[difficulty]
+task_type = "cfd"
+domain = "flow_control"
+reward_type = "multi_deterministic_rubrics"
+
+[[outputs]]
+path = "/tmp/output/diffuser_design.json"
+description = "Submitted diffuser design (area_ratio, length_m, wall_blend, inflection_position)."
+required = true
+
+[verifier]
+timeout_sec = 1800
+
+[ground_truth]
+score_epsilon = 0.001
+in_container = true

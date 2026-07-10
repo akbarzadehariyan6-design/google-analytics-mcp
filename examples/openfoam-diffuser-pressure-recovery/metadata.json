@@ -1,0 +1,7 @@
+{
+  "task_id": "openfoam-diffuser-pressure-recovery",
+  "task_type": "cfd",
+  "domain": "flow_control",
+  "reward_type": "multi_deterministic_rubrics",
+  "description": "Design the expansion contour of a 2-D planar diffuser to maximize static pressure recovery across a four-velocity operating envelope, subject to attachment and outlet-uniformity requirements. Graded by a deterministic hidden RANS pipeline against measured anchors."
+}

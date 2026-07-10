@@ -1,0 +1,30 @@
+{
+  "description": "Two-dimensional planar diffuser in a low-speed air duct; symmetric about the centerline.",
+  "fluid": {
+    "medium": "air",
+    "kinematic_viscosity_m2_per_s": 1.5e-05
+  },
+  "geometry": {
+    "inlet_full_height_m": 0.08,
+    "inlet_half_height_m": 0.04,
+    "inlet_channel_length_m": 0.24,
+    "outlet_channel_length_m": 0.36,
+    "contour": "h(xi) = h1 + (h2 - h1) * ((1 - b) * xi + b * smoothstep(remap(xi, c))), see instruction.md"
+  },
+  "operating_velocities_m_per_s": [6.0, 10.0, 14.0, 18.0],
+  "design_bounds": {
+    "area_ratio": [1.4, 3.2],
+    "length_m": [0.25, 0.72],
+    "wall_blend": [0.0, 1.0],
+    "inflection_position": [0.25, 0.75]
+  },
+  "attachment_limits": {
+    "reversed_wall_fraction_full_credit": 0.002,
+    "reversed_wall_fraction_zero_credit": 0.012
+  },
+  "notes": [
+    "Cp = (p_outlet - p_inlet) / (0.5 * rho * U_inlet^2), duct inlet plane to outlet plane.",
+    "1-D inviscid bound: Cp_ideal = 1 - 1/area_ratio^2.",
+    "Separation risk is worst at the lowest operating velocity."
+  ]
+}

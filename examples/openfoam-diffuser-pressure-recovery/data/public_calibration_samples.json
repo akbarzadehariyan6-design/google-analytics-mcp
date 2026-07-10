@@ -1,0 +1,147 @@
+{
+  "description": "Measured performance of assorted NON-optimal sample designs produced by the same fixed evaluation pipeline that grades submissions. Use these to calibrate the recovery/attachment tradeoff; none of them is the reference design.",
+  "samples": {
+    "gentle_long": {
+      "design": {
+        "area_ratio": 1.6,
+        "length_m": 0.72,
+        "wall_blend": 0.5,
+        "inflection_position": 0.5
+      },
+      "performance_by_velocity": {
+        "6": {
+          "cp": 0.4718,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.22
+        },
+        "10": {
+          "cp": 0.5098,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.169
+        },
+        "14": {
+          "cp": 0.514,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.16
+        },
+        "18": {
+          "cp": 0.5163,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.156
+        }
+      }
+    },
+    "moderate_short": {
+      "design": {
+        "area_ratio": 1.9,
+        "length_m": 0.35,
+        "wall_blend": 0.0,
+        "inflection_position": 0.5
+      },
+      "performance_by_velocity": {
+        "6": {
+          "cp": 0.5992,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.281
+        },
+        "10": {
+          "cp": 0.6385,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.22
+        },
+        "14": {
+          "cp": 0.6443,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.206
+        },
+        "18": {
+          "cp": 0.6471,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.2
+        }
+      }
+    },
+    "aggressive_short_separated": {
+      "design": {
+        "area_ratio": 2.8,
+        "length_m": 0.25,
+        "wall_blend": 0.0,
+        "inflection_position": 0.5
+      },
+      "performance_by_velocity": {
+        "6": {
+          "unusable": "solver failed, diverged, or did not reach a healthy solution"
+        },
+        "10": {
+          "unusable": "solver failed, diverged, or did not reach a healthy solution"
+        },
+        "14": {
+          "unusable": "solver failed, diverged, or did not reach a healthy solution"
+        },
+        "18": {
+          "unusable": "solver failed, diverged, or did not reach a healthy solution"
+        }
+      }
+    },
+    "aggressive_smooth_separated": {
+      "design": {
+        "area_ratio": 3.0,
+        "length_m": 0.72,
+        "wall_blend": 1.0,
+        "inflection_position": 0.5
+      },
+      "performance_by_velocity": {
+        "6": {
+          "cp": 0.6536,
+          "reversed_wall_fraction": 0.56,
+          "outlet_nonuniformity": 0.578
+        },
+        "10": {
+          "cp": 0.7164,
+          "reversed_wall_fraction": 0.46,
+          "outlet_nonuniformity": 0.522
+        },
+        "14": {
+          "cp": 0.7298,
+          "reversed_wall_fraction": 0.41,
+          "outlet_nonuniformity": 0.507
+        },
+        "18": {
+          "cp": 0.7368,
+          "reversed_wall_fraction": 0.39,
+          "outlet_nonuniformity": 0.497
+        }
+      }
+    },
+    "upper_mid_long": {
+      "design": {
+        "area_ratio": 2.3,
+        "length_m": 0.72,
+        "wall_blend": 0.2,
+        "inflection_position": 0.5
+      },
+      "performance_by_velocity": {
+        "6": {
+          "cp": 0.6757,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.333
+        },
+        "10": {
+          "cp": 0.7165,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.268
+        },
+        "14": {
+          "cp": 0.7225,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.251
+        },
+        "18": {
+          "cp": 0.7254,
+          "reversed_wall_fraction": 0.0,
+          "outlet_nonuniformity": 0.245
+        }
+      }
+    }
+  }
+}

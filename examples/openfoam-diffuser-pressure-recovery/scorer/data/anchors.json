@@ -1,0 +1,22 @@
+{
+  "cp_naive_baseline_by_velocity": {
+    "6": 0.596437025830856,
+    "10": 0.6337840048931326,
+    "14": 0.6385618424030143,
+    "18": 0.6409758372589643
+  },
+  "cp_feasible_max_by_velocity": {
+    "6": 0.7048925782290935,
+    "10": 0.7505111921374663,
+    "14": 0.7584224982813377,
+    "18": 0.762163156067833
+  },
+  "nonuniformity_full_credit": 0.428099,
+  "nonuniformity_zero_credit": 1.259114,
+  "calibration_design": {
+    "area_ratio": 2.636,
+    "length_m": 0.72,
+    "wall_blend": 0.0,
+    "inflection_position": 0.5
+  }
+}
