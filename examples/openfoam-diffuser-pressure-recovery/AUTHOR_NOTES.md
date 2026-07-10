@@ -17,25 +17,35 @@ The previous revision measured naive-baseline ≈ 0.55, which leaves too
 much floor for a strong model. This rebuild attacks that directly:
 
 1. **Gate weights slashed.** Validity/feasibility/mesh/solver-health now
-   total 0.19 (was ≈ 0.4 of earnable floor). A valid, converged,
-   attached but unoptimized design scores ≈ 0.31 measured (see below).
-2. **Fourth disclosed velocity (18 m/s)** added to the envelope; all
-   physics criteria are per-velocity and the worst case carries an
-   extra 0.23-weight robustness criterion.
-3. **Sub-linear recovery credit.** Normalized Cp credit is raised to
-   GAMMA = 2.0, so halfway between baseline and optimum earns 25% of
-   the recovery weight, not 50%.
-4. **Zero-credit anchor = a decent design.** The naive mid-bounds
-   baseline (AR 1.9, attached everywhere, Cp ≈ 0.56-0.60) is the
-   0-credit level, so "any reasonable diffuser" earns nothing on the
-   objective; credit only starts on genuine optimization.
-5. **Interior optimum on a razor edge.** Bounds were widened
-   (AR up to 3.2) so the feasible-max design sits at the attachment
-   edge at the LOWEST velocity (Re effect, disclosed in the prompt).
-   Too aggressive → separation (bf > 0.005 costs attachment credit and
-   collapses Cp); too gentle → little recovery credit. The oracle walks
-   AR to the edge in 0.02 steps, so out-optimizing the anchor is hard.
-6. **Any unusable operating point voids all physics credit** (max
+   total 0.19. A valid, converged, attached but unoptimized design
+   scores 0.29 measured (see below).
+2. **Fourth disclosed velocity (18 m/s)** added; all physics criteria
+   are per-velocity and the worst case carries the single largest
+   weight (0.56 robustness criterion).
+3. **Strongly sub-linear recovery credit (GAMMA = 4).** Normalized Cp
+   credit is quartic: 70% of the reference-to-optimum gap earns ~24%
+   of the recovery weight.
+4. **Zero-credit anchor = a decent published design.** The reference
+   design (AR 2.2, straight wall, full length — published with measured
+   values in data/public_baseline_summary.json) is the 0-credit level.
+   Textbook-conservative designs (2th ≈ 7-9 deg, AR ~2.1-2.3) earn
+   only the validity floor.
+5. **Interior optimum on a razor edge.** Bounds widened (AR up to 3.2)
+   so the feasible max sits at the attachment edge at the LOWEST
+   velocity (Re effect, disclosed in the prompt). The oracle walks AR
+   to the edge in 0.02 steps, so out-optimizing the anchor is hard.
+6. **Overshoot is unprofitable by construction.** Raw Cp barely drops
+   for mildly separated designs on this short domain, so the reward
+   multiplies each velocity's recovery credit by that velocity's
+   attachment credit (soft 0.002 / hard 0.010: ONE reversed wall cell
+   already zeroes that velocity). Measured: AR 2.7 scores 0.39,
+   AR 2.85 scores 0.33.
+7. **No grader replication.** Nothing from scorer/ ships in the task
+   image; the public mesh probe is self-contained and mesh-only. An
+   agent cannot bisect the hidden attachment edge exactly because the
+   solver settings, turbulence model, and metric definitions are not
+   reproducible from public files.
+8. **Any unusable operating point voids all physics credit** (max
    earnable ≈ 0.19 + partial solver health).
 
 ## What was verified for real, end to end (this sandbox)
@@ -60,13 +70,30 @@ much floor for a strong model. This rebuild attacks that directly:
   `python3 scorer/generate_public_data.py` from the same pipeline, so
   the public numbers genuinely bridge the hidden anchors
   (env pre-flight hidden-vs-public divergence check).
-- Oracle scores 1.0 - epsilon and the naive baseline lands ≈ 0.31
-  (measured; see "Measured scores" below).
+- Oracle scores exactly 1.0 and the naive baseline lands 0.29
+  (measured; see below).
 
 ## Measured scores (this sandbox, v1912)
 
-See `.alignerr/local_validation.json` for the exact measured numbers
-committed from this environment.
+Full grader runs (mesh + 4 solves each) on a spectrum of submissions:
+
+| submission                          | score  |
+|-------------------------------------|--------|
+| oracle (AR 2.636, L 0.72, linear)   | 1.0000 |
+| naive mid-bounds (AR 1.9)           | 0.2900 |
+| published reference (AR 2.2)        | 0.2900 |
+| theory guess AR 2.3                 | 0.2974 |
+| guess AR 2.45                       | 0.4524 |
+| lucky guess AR 2.55                 | 0.7097 |
+| overshoot AR 2.7                    | 0.3870 |
+| overshoot AR 2.85                   | 0.3322 |
+| out-of-bounds AR 3.5                | 0.0400 |
+| junk schema                         | 0.0000 |
+
+Scores above 0.5 require landing AR in roughly [2.50, 2.66] with a
+straight wall at full length — a ±0.08 window in a 1.4-3.2 range inside
+a 4-D space where nonzero wall_blend separates earlier or loses Cp.
+Exact numbers: `.alignerr/local_validation.json`.
 
 ## Bugs found and fixed during this rebuild
 
@@ -96,8 +123,8 @@ committed from this environment.
    ```bash
    python3 scorer/calibrate_anchors.py        # re-measure anchors
    python3 scorer/generate_public_data.py     # re-measure public data
-   bash solution/solve.sh && python3 scorer/compute_score.py  # expect ~1.0
-   bash baselines/naive.sh && python3 scorer/compute_score.py # expect ~0.31
+   bash solution/solve.sh && python3 scorer/compute_score.py  # expect 1.0
+   bash baselines/naive.sh && python3 scorer/compute_score.py # expect ~0.29
    ```
    Anchors and public data MUST be regenerated in the grading image —
    they are build-specific measured values.
@@ -106,17 +133,21 @@ committed from this environment.
    image.
 3. No reviewer MP4 is declared (same choice as the guide's hydrofoil
    example); JSON artifacts + build proof carry the evidence.
-4. The public probe (`data/case_skeleton_probe.sh`) expects
-   `_case.py` at /opt/scorer/_case.py in the image (Dockerfile copies
-   only that file; hidden anchors are NOT baked into the image).
+4. The public probe (`data/case_skeleton_probe.sh`) is fully
+   self-contained (mesh-only) and nothing from scorer/ ships in the
+   image. If you change the mesh parameters in `scorer/_case.py`, keep
+   the probe's embedded copies in sync.
 
 ## If Boreal still comes back >= 0.400
 
-Cheapest knobs, in order:
-- raise GAMMA to 2.5-3.0 (sub-linear credit bites harder);
-- shift weight from per-velocity recovery into robustness_worst_case;
-- lower SEPARATION_SOFT_LIMIT to 0.003 (the oracle holds bf <= 0.004 —
-  re-run the oracle attachment-edge walk with a matching
-  ATTACHMENT_LIMIT first);
-- drop the two separated samples from public_calibration_samples.json
-  (they currently teach the failure mode fairly cheaply).
+Cheapest knobs, in order (re-run calibrate_anchors + generate_public_data
++ the score matrix after each):
+- raise GAMMA to 5-6 (the AR-2.55 lucky-guess score of 0.71 is the
+  biggest remaining contributor; GAMMA=6 drops it to ~0.55);
+- narrow the high-score window by moving weight from pressure_recovery
+  (0.15) fully into robustness_worst_case;
+- publish LESS: drop the two separated samples from
+  public_calibration_samples.json (they bracket the feasible region);
+- if agents are finding the edge with their own CFD, coarsen their
+  ability to transfer: change N_CELLS_Y or the wall grading (this moves
+  the hidden edge location; re-calibrate everything afterwards).

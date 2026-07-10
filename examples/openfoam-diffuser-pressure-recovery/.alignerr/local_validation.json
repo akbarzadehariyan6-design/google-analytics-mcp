@@ -1,0 +1,36 @@
+{
+  "environment": {
+    "solver": "OpenFOAM v1912 (ESI, Ubuntu 24.04 universe package)",
+    "note": "Authoring-sandbox validation. Anchors and public data MUST be regenerated in the real task image (v2412) before the harness ground-truth run: python3 scorer/calibrate_anchors.py && python3 scorer/generate_public_data.py",
+    "date": "2026-07-10"
+  },
+  "rubric": {
+    "gamma": 4.0,
+    "separation_soft_limit": 0.002,
+    "separation_hard_limit": 0.010,
+    "weights": {
+      "gates_total": 0.19,
+      "separation": 0.06,
+      "outlet_uniformity": 0.04,
+      "pressure_recovery": 0.15,
+      "robustness_worst_case": 0.56
+    }
+  },
+  "measured_scores": {
+    "oracle_AR2.636_L0.72_linear": 1.0,
+    "naive_mid_bounds_AR1.9": 0.29,
+    "reference_published_AR2.2": 0.29,
+    "theory_guess_AR2.3": 0.2974,
+    "guess_AR2.45": 0.4524,
+    "lucky_guess_AR2.55": 0.7097,
+    "overshoot_AR2.7": 0.387,
+    "overshoot_AR2.85": 0.3322,
+    "out_of_bounds_AR3.5": 0.04,
+    "junk_schema": 0.0
+  },
+  "landscape_notes": [
+    "Scores above 0.5 require AR within roughly [2.50, 2.66] with a straight wall and full length: a +/-0.08 window in a 1.4-3.2 range inside a 4-D design space.",
+    "Separation binds at the lowest velocity (6 m/s); one reversed wall cell (fraction 0.01) already zeroes that velocity's recovery credit, so overshooting the edge scores 0.33-0.39.",
+    "The published reference design (AR 2.2) is the zero-credit anchor; textbook-conservative designs earn only the ~0.29 validity floor."
+  ]
+}
