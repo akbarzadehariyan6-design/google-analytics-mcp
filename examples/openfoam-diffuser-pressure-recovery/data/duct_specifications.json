@@ -20,7 +20,7 @@
   },
   "attachment_limits": {
     "reversed_wall_fraction_full_credit": 0.002,
-    "reversed_wall_fraction_zero_credit": 0.012
+    "reversed_wall_fraction_zero_credit": 0.010
   },
   "notes": [
     "Cp = (p_outlet - p_inlet) / (0.5 * rho * U_inlet^2), duct inlet plane to outlet plane.",

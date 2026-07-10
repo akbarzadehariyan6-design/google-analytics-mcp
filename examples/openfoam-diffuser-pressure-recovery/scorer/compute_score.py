@@ -8,9 +8,9 @@ scorer/data/anchors.json.
 Reward philosophy (calibrated so a merely-valid design scores low):
   - validity / feasibility / mesh / solver gates:   0.19 total
   - attachment (graded, per velocity):              0.06
-  - outlet flow uniformity (graded, worst case):    0.06
-  - pressure-recovery objective (per velocity):     0.36
-  - worst-case robustness across velocities:        0.33
+  - outlet flow uniformity (graded, worst case):    0.04
+  - pressure-recovery objective (per velocity):     0.15
+  - worst-case robustness across velocities:        0.56
 
 Pressure-recovery credit is normalized per velocity between the
 published reference-design anchor (0 credit) and the feasible-max
@@ -34,9 +34,9 @@ import _case  # noqa: E402
 SUBMISSION_PATH = "/tmp/output/diffuser_design.json"
 ANCHORS_PATH = Path(__file__).resolve().parent / "data" / "anchors.json"
 
-GAMMA = 3.0                       # sub-linear credit exponent
+GAMMA = 4.0                       # sub-linear credit exponent
 SEPARATION_SOFT_LIMIT = 0.002     # full attachment credit at/below this
-SEPARATION_HARD_LIMIT = 0.012     # zero attachment credit at/above this
+SEPARATION_HARD_LIMIT = 0.010     # zero attachment credit at/above this
 
 WEIGHTS = {
     "file_valid": 0.02,
@@ -46,9 +46,9 @@ WEIGHTS = {
     "mesh_valid": 0.03,
     "solver_health": 0.08,        # split evenly across velocities
     "separation": 0.06,           # split evenly across velocities
-    "outlet_uniformity": 0.06,    # worst case across velocities
-    "pressure_recovery": 0.36,    # split evenly across velocities
-    "robustness_worst_case": 0.33,
+    "outlet_uniformity": 0.04,    # worst case across velocities
+    "pressure_recovery": 0.15,    # split evenly across velocities
+    "robustness_worst_case": 0.56,
 }
 
 

@@ -76,7 +76,7 @@ your four numbers change the outcome). Scoring, in physical terms:
   the four velocities forfeits all physics credit.
 - **Attachment (graded, strict):** the fraction of the expansion/outlet
   wall showing reversed near-wall flow must stay at or below 0.002 for
-  full credit at each velocity; credit falls to zero by 0.012.
+  full credit at each velocity; credit falls to zero by 0.010.
 - **Outlet uniformity (graded):** the delivered outlet velocity profile
   should be as uniform as practical; the worst operating point governs.
 - **Pressure recovery (majority of credit):** the static pressure-
@@ -88,8 +88,9 @@ your four numbers change the outcome). Scoring, in physical terms:
   full-length diffuser) and full credit at the best achievable recovery
   within the stated bounds. Credit grows strongly sub-linearly, so
   small improvements over the reference earn very little. The minimum
-  across the four velocities is additionally scored as a robustness
-  criterion with large weight.
+  across the four velocities (worst-case robustness) carries the
+  LARGEST single weight in the rubric — a design that excels at three
+  velocities but degrades at one is scored primarily by that one.
 
 There is no partial credit for designs that trade attachment for raw
 recovery: at each velocity the recovery credit is scaled by that

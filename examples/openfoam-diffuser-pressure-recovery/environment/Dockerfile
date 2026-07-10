@@ -17,10 +17,10 @@ RUN bash -lc 'set --; source /etc/solver-envs.d/openfoam.sh && \
 # Public files visible to the model.
 COPY ${PROBLEM_DIR}/data/ /data/
 
-# The deterministic case-builder module backs the public mesh probe.
-# Hidden fixtures (scorer/data/anchors.json) are intentionally NOT
-# copied into the image -- the grader runs against the repo's scorer
-# directory at grade time.
-COPY ${PROBLEM_DIR}/scorer/_case.py /opt/scorer/_case.py
+# NOTE: nothing from scorer/ is copied into the image.  The public mesh
+# probe under /data is fully self-contained, and the hidden pipeline
+# (solver settings, BCs, turbulence model, metrics, anchors) must stay
+# invisible to the agent -- exposing it would let an attempt replicate
+# the grader and bisect the attachment edge exactly.
 
 RUN mkdir -p /tmp/output && chmod 777 /tmp/output
